@@ -7,6 +7,7 @@ function App() {
   const[numberAllowed,setNumberAllowed]=useState(false);
   const[charAllowed,setCharAllowed] = useState(false);
   const[password,setPassword]= useState('');
+  const [copied, setCopied] = useState(false);
   console.log("Component is rendering...");
 
   const passwordRef = useRef(null);
@@ -28,6 +29,13 @@ function App() {
 const copyPasswordToclipboard=()=>{
   window.navigator.clipboard.writeText(password);
   passwordRef.current?.select();
+  setCopied(true);
+
+    // 2. Use setTimeout to change it back after 2 seconds
+    // (This is a classic 'Side Effect' handled inside the event)
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
 }
 
   return (
@@ -36,7 +44,12 @@ const copyPasswordToclipboard=()=>{
       <div className='flex shadow rounded-lg overflow-hidden mb-4'>
         <input type="text" value={password} className='outline-none w-full py-1 px-3' placeholder='Password' readOnly
         ref={passwordRef}/>
-        <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0' onClick={copyPasswordToclipboard}>copy</button>
+        <button 
+      className={`outline-none px-3 py-0.5 shrink-0 text-white ${copied ? 'bg-green-600' : 'bg-blue-700'}`}
+      onClick={copyPasswordToclipboard}
+    >
+      {copied ? "Copied!" : "Copy"} 
+    </button>
       </div>
       <div className='flex text-sm gap-x-2'>
         <div className='flex items-center gap-x-1'>
