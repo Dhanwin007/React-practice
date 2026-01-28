@@ -1,1 +1,1 @@
-# start of react JS on main channel
+# PROJECTS BUILT WHILE LEARING REACT
